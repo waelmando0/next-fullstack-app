@@ -107,14 +107,61 @@
 
 5. `yarn add -D husky`
 
-   ### Git Hooks
+### Git Hooks
 
-   - npx husky install
-   - npx husky add .husky/pre-commit "yarn lint"
-   - npx husky add .husky/pre-push "yarn build"
-   - npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
+- npx husky install
+- npx husky add .husky/pre-commit "yarn lint"
+- npx husky add .husky/pre-push "yarn build"
+- npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 
-   script
-   "prepare": "husky install"
-   <br/>
-   Automatically going to install husky to make sure that they all have those pre-commit hooks and pre-push hooks the same as you do
+script
+"prepare": "husky install"
+<br/>
+Automatically going to install husky to make sure that they all have those pre-commit hooks and pre-push hooks the same as you do
+
+6. create folder .vscode => settings.json
+
+   ```
+    {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.organizeImports": true
+    }
+   }
+   ```
+
+   launch.json
+
+   ```
+   {
+   "version": "0.1.0",
+   "configurations": [
+       {
+       "name": "Next.js: debug server-side",
+       "type": "node-terminal",
+       "request": "launch",
+       "command": "yarn dev"
+       },
+       {
+       "name": "Next.js: debug client-side",
+       "type": "pwa-chrome",
+       "request": "launch",
+       "url": "http://localhost:3000"
+       },
+       {
+       "name": "Next.js: debug full stack",
+       "type": "node-terminal",
+       "request": "launch",
+       "command": "yarn dev",
+       "console": "integratedTerminal",
+       "serverReadyAction": {
+           "pattern": "started server on .+, url: (https?://.+)",
+           "uriFormat": "%s",
+           "action": "debugWithChrome"
+       }
+       }
+   ],
+   "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+   }
+   ```
