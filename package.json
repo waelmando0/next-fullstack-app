@@ -1,8 +1,6 @@
 {
   "name": "full-stack",
-  "description": "This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).",
   "version": "1.0.0",
-  "main": "next.config.js",
   "author": "waelmando",
   "license": "ISC",
   "private": true,
@@ -16,7 +14,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "next": "latest",
@@ -30,6 +29,7 @@
     "autoprefixer": "^10.4.7",
     "eslint": "^8.18.0",
     "eslint-config-next": "12.2.0",
+    "husky": "^8.0.1",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.2",

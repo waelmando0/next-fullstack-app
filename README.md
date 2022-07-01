@@ -48,3 +48,16 @@
 
    script
    "prettier": "prettier --write ."
+
+4. `yarn add -D husky`
+
+   ### Git Hooks
+
+   - npx husky install
+   - npx husky add .husky/pre-commit "yarn lint"
+   - npx husky add .husky/pre-push "yarn build"
+
+   script
+   "prepare": "husky install"
+   <br/>
+   Automatically going to install husky to make sure that they all have those pre-commit hooks and pre-push hooks the same as you do
