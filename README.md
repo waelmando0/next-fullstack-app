@@ -165,3 +165,6 @@ Automatically going to install husky to make sure that they all have those pre-c
    "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
    }
    ```
+
+7. `yarn add -D cross-env`
+   script "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
