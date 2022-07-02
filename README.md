@@ -1,170 +1,34 @@
-1. **.npmrc**
-   engine-strict=true
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-   "engines": {
-   "node": ">=14.0.0",
-   "yarn": ">=1.22.0",
-   "npm": "please-use-yarn"
-   },
+## Getting Started
 
-2. `yarn add _D eslint`
-   .eslintrc.json
+First, run the development server:
 
-   ```
-   {
-       "extends": ["next", "next/core-web-vitals", "eslint:recommended"],
-       "globals": {
-           "React": "readonly"
-       },
-       "rules": {
-           "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }]
-       }
-   }
-   ```
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-   script
-   "lint": "next lint"
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-3. `yarn add -D prettier`
-   .prettieignore
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-   ```
-    .yarn
-    .next
-    dist
-    node_modules
-   ```
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-   .prettierrc
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-   ```
-   {
-   "trailingComma": "es5",
-   "tabWidth": 2,
-   "semi": true,
-   "singleQuote": true
-   }
-   ```
+## Learn More
 
-   script
-   "prettier": "prettier --write ."
+To learn more about Next.js, take a look at the following resources:
 
-4. `yarn add -D @commitlint/config-conventional @commitlint/cli`
-   commitlint.config.js
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-   ```
-    // build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-    // ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-    // docs: Documentation only changes
-    // feat: A new feature
-    // fix: A bug fix
-    // perf: A code change that improves performance
-    // refactor: A code change that neither fixes a bug nor adds a feature
-    // style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-    // test: Adding missing tests or correcting existing tests
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-    module.exports = {
-    extends: ['@commitlint/config-conventional'],
-        rules: {
-            'body-leading-blank': [1, 'always'],
-            'body-max-line-length': [2, 'always', 100],
-            'footer-leading-blank': [1, 'always'],
-            'footer-max-line-length': [2, 'always', 100],
-            'header-max-length': [2, 'always', 100],
-            'scope-case': [2, 'always', 'lower-case'],
-            'subject-case': [
-            2,
-            'never',
-            ['sentence-case', 'start-case', 'pascal-case', 'upper-case'],
-            ],
-            'subject-empty': [2, 'never'],
-            'subject-full-stop': [2, 'never', '.'],
-            'type-case': [2, 'always', 'lower-case'],
-            'type-empty': [2, 'never'],
-            'type-enum': [
-            2,
-            'always',
-            [
-                'build',
-                'chore',
-                'ci',
-                'docs',
-                'feat',
-                'fix',
-                'perf',
-                'refactor',
-                'revert',
-                'style',
-                'test',
-                'translation',
-                'security',
-                'changeset',
-            ],
-            ],
-        },
-    };
-   ```
+## Deploy on Vercel
 
-5. `yarn add -D husky`
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-### Git Hooks
-
-- npx husky install
-- npx husky add .husky/pre-commit "yarn lint"
-- npx husky add .husky/pre-push "yarn build"
-- npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
-
-script
-"prepare": "husky install"
-<br/>
-Automatically going to install husky to make sure that they all have those pre-commit hooks and pre-push hooks the same as you do
-
-6. create folder .vscode => settings.json
-
-   ```
-    {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.codeActionsOnSave": {
-        "source.fixAll": true,
-        "source.organizeImports": true
-    }
-   }
-   ```
-
-   launch.json
-
-   ```
-   {
-   "version": "0.1.0",
-   "configurations": [
-       {
-       "name": "Next.js: debug server-side",
-       "type": "node-terminal",
-       "request": "launch",
-       "command": "yarn dev"
-       },
-       {
-       "name": "Next.js: debug client-side",
-       "type": "pwa-chrome",
-       "request": "launch",
-       "url": "http://localhost:3000"
-       },
-       {
-       "name": "Next.js: debug full stack",
-       "type": "node-terminal",
-       "request": "launch",
-       "command": "yarn dev",
-       "console": "integratedTerminal",
-       "serverReadyAction": {
-           "pattern": "started server on .+, url: (https?://.+)",
-           "uriFormat": "%s",
-           "action": "debugWithChrome"
-       }
-       }
-   ],
-   "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
-   }
-   ```
-
-7. `yarn add -D cross-env`
-   script "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
