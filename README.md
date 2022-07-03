@@ -368,3 +368,128 @@ export const parameters = {
 ```
 
 `yarn storybook`
+
+## Creating a Component Template
+
+/components/templates/base
+<br/>
+And inside that directory we'll create BaseTemplate.tsx. This will follow a standard pattern of filename matching the directories leading up to it. This allows us for example to have other types of cards in the cards directory like PhotoCard or TextCard etc.
+<br/>
+BaseTemplate.tsx
+
+```
+export interface IBaseTemplate {}
+
+const BaseTemplate: React.FC<IBaseTemplate> = () => {
+  return <div>Hello world!</div>;
+};
+
+export default BaseTemplate;
+```
+
+Every single one of our components is going to follow this exact structure. Even if it does not use props it will still export an empty props interface for the component. The reason for this is it will allow us to replicate this exact structure across many components and files, and interchange components/imports using the same expected pattern and just find/replace the names of the components.
+<br/>
+When you begin working with the stories and mock props etc it will become quickly apparent how convenient and powerful it is to maintain a consistent naming scheme and interface for all your component files.
+<br/>
+This goes back to the consistency is everything point we made earlier.
+<br/>
+Next I am going to make a style module file that lives next to the component. By default Next.js gives you a /styles directory which I personally do not use, but if you prefer to keep all your styles in the same place that's a fine choice. I just prefer to keep them with the components.
+
+BaseTemplate.module.css
+`.component {}`
+
+<br/>
+As a standard empty template for where your top level styles will go on your component. You can update your BaseTemplate as follows:
+<br/>
+BaseTemplate.tsx
+
+```
+import styles from './BaseTemplate.module.css';
+
+export interface IBaseTemplate {}
+
+const BaseTemplate: React.FC<IBaseTemplate> = () => {
+return <div className={styles.container}>Hello world!</div>;
+};
+
+export default BaseTemplate;
+
+```
+
+<br/>
+Let's add an example prop to our template so we can handle the standard we'll be using for components props:
+
+BaseTemplate.tsx
+
+```
+import styles from './BaseTemplate.module.css';
+
+export interface IBaseTemplate {
+  sampleTextProp: string;
+}
+
+const BaseTemplate: React.FC<IBaseTemplate> = ({ sampleTextProp }) => {
+  return <div className={styles.container}>{sampleTextProp}</div>;
+};
+
+export default BaseTemplate;
+```
+
+<br/>
+With each component we create we're going to want a very quick and easy way to test it in different environments (Storybook for example, but also the app, and maybe our unit tests). It will be handy to have quick access to data to render the component.
+<br/>
+Let's create a file to store some mock data for this component to use for testing:
+<br/>
+
+BaseTemplate.mocks.ts
+
+```
+import { IBaseTemplate } from './BaseTemplate';
+
+const base: IBaseTemplate = {
+  sampleTextProp: 'Hello world!',
+};
+
+export const mockBaseTemplateProps = {
+  base,
+};
+```
+
+<br/>
+This structure may seem a bit convoluted, but we'll see the benefits soon. I am using very intentional consistent naming patterns so this template is very easy to copy and paste to each new component you create.
+<br/>
+BaseTemplate.stories.tsx
+
+```
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import BaseTemplate, { IBaseTemplate } from './BaseTemplate';
+import { mockBaseTemplateProps } from './BaseTemplate.mocks';
+
+export default {
+title: 'templates/BaseTemplate',
+component: BaseTemplate,
+// More on argTypes: <https://storybook.js.org/docs/react/api/argtypes>
+argTypes: {},
+} as ComponentMeta<typeof BaseTemplate>;
+
+// More on component templates: <https://storybook.js.org/docs/react/writing-stories/introduction#using-args>
+const Template: ComponentStory<typeof BaseTemplate> = (args) => (
+<BaseTemplate {...args} />
+);
+
+export const Base = Template.bind({});
+// More on args: <https://storybook.js.org/docs/react/writing-stories/args>
+
+Base.args = {
+...mockBaseTemplateProps.base,
+} as IBaseTemplate;
+
+```
+
+<br/>
+I'm not going to get into all the details of what each different part of a stories file entails, for that your best resource is the official Storybook documentation.
+<br/>
+The goal here is to create a consistent easily copy/paste-able pattern of component building and testing.
+<br/>
+Let's try this one out. Run:
+`yarn storybook`
