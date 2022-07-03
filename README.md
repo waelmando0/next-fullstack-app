@@ -243,6 +243,7 @@ Debugging
 ```
 
 <br/>
+
 `yarn add -D cross-env`
 
 package.json
@@ -298,7 +299,9 @@ Storybook gives us an environment to show off and test the React components we a
 `yarn install`
 
 <br/>
+
 storybook/main.js
+
 ```
 module.exports = {
   stories: ['../**/*.stories.mdx', '../**/*.stories.@(js|jsx|ts|tsx)'],
@@ -315,6 +318,7 @@ module.exports = {
   },
 };
 ```
+
 </br>
 
 storybook/preview.js
@@ -389,9 +393,12 @@ export default BaseTemplate;
 
 Every single one of our components is going to follow this exact structure. Even if it does not use props it will still export an empty props interface for the component. The reason for this is it will allow us to replicate this exact structure across many components and files, and interchange components/imports using the same expected pattern and just find/replace the names of the components.
 <br/>
+<br/>
 When you begin working with the stories and mock props etc it will become quickly apparent how convenient and powerful it is to maintain a consistent naming scheme and interface for all your component files.
 <br/>
+<br/>
 This goes back to the consistency is everything point we made earlier.
+<br/>
 <br/>
 Next I am going to make a style module file that lives next to the component. By default Next.js gives you a /styles directory which I personally do not use, but if you prefer to keep all your styles in the same place that's a fine choice. I just prefer to keep them with the components.
 
@@ -400,6 +407,7 @@ BaseTemplate.module.css
 
 <br/>
 As a standard empty template for where your top level styles will go on your component. You can update your BaseTemplate as follows:
+<br/>
 <br/>
 BaseTemplate.tsx
 
@@ -419,6 +427,8 @@ export default BaseTemplate;
 <br/>
 Let's add an example prop to our template so we can handle the standard we'll be using for components props:
 
+<br/>
+<br/>
 BaseTemplate.tsx
 
 ```
@@ -438,7 +448,9 @@ export default BaseTemplate;
 <br/>
 With each component we create we're going to want a very quick and easy way to test it in different environments (Storybook for example, but also the app, and maybe our unit tests). It will be handy to have quick access to data to render the component.
 <br/>
+<br/>
 Let's create a file to store some mock data for this component to use for testing:
+<br/>
 <br/>
 
 BaseTemplate.mocks.ts
@@ -457,6 +469,7 @@ export const mockBaseTemplateProps = {
 
 <br/>
 This structure may seem a bit convoluted, but we'll see the benefits soon. I am using very intentional consistent naming patterns so this template is very easy to copy and paste to each new component you create.
+<br/>
 <br/>
 BaseTemplate.stories.tsx
 
@@ -489,7 +502,9 @@ Base.args = {
 <br/>
 I'm not going to get into all the details of what each different part of a stories file entails, for that your best resource is the official Storybook documentation.
 <br/>
+<br/>
 The goal here is to create a consistent easily copy/paste-able pattern of component building and testing.
+<br/>
 <br/>
 Let's try this one out. Run:
 `yarn storybook`
