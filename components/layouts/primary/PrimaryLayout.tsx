@@ -10,13 +10,11 @@ const PrimaryLayout: React.FC<IPrimaryLayout> = ({ children }) => {
       <Head>
         <title>NextJs Fullstack App Template</title>
       </Head>
-      <>
+      <div className="flex flex-col min-h-screen overflow-hidden">
         <Header />
-        <div className="flex flex-col min-h-[88vh] overflow-hidden">
-          <main>{children}</main>
-        </div>
+        <main className="flex-grow">{children}</main>
         <Footer />
-      </>
+      </div>
     </>
   );
 };
